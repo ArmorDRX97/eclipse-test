@@ -1,0 +1,53 @@
+html, body {
+  font-size: 16px;
+  font-weight: 400;
+  background-color: #fff;
+}
+
+.card{
+  .card-subtitle{
+    color: #999;
+    height: 40px;
+    line-height: 1.2;
+  }
+}
+
+.pagination{
+  .page-link{
+    &:disabled{
+      background-color: #f2f2f2;
+      color: #999;
+      border-color: transparent;
+    }
+  }
+}
+
+.special-block{
+  height: 196px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button{
+    img{
+      width: 45px;
+      height: auto;
+    }
+    &:disabled{
+      opacity: 0.4;
+    }
+  }
+}
+
+.search{
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+
+.text-green{
+  color: green;
+}
+
+.text-danger{
+  color: red;
+}
