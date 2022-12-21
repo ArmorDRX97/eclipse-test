@@ -1,4 +1,10 @@
-# vue3-test
+# vue3-test eclipse
+
+Сделано пока что без этих пунктов:
+1. Декомпозиция компонентов.
+2. Вынос логики из компонентов в стор.
+3. Написание на composition api
+
 
 ## Project setup
 ```
@@ -9,11 +15,3 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
