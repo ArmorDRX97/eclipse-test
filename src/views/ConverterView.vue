@@ -11,20 +11,21 @@
                                     <option :value="valute">{{valute.CharCode}} - {{valute.Name}}</option>
                                 </template>
                             </select>
+                            <small class="form-text text-danger" v-if="!baseValute">Выберите базовую валюту</small>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" v-if="baseValute">
                             <label for="calc-number">{{baseValute.CharCode}}</label>
-                            <input type="text" id="calc-number" class="form-control" v-model="calc">
-                            <small class="form-text text-muted">{{calc}} {{baseValute.Name}} - {{(calc * baseValute.Value / baseValute.Nominal).toFixed(4)}} ₽</small>
+                            <input type="number" id="calc-number" class="form-control" v-model="amount">
+                            <small class="form-text text-muted">{{amount}} {{baseValute.Name}} - {{(amount * baseValute.Value / baseValute.Nominal).toFixed(4)}} ₽</small>
                         </div>
-                        <div class="title" v-if="baseValute"></div>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-2">
                 <div class="special-block">
-                    <button @click="reverse" class="btn btn-warning" :disabled="!calcValute"><img
-                            src="https://cdn-icons-png.flaticon.com/512/46/46246.png" alt=""></button>
+                    <button @click="reverse" class="btn btn-warning" :disabled="!baseValute || !calcValute">
+                        <img src="https://cdn-icons-png.flaticon.com/512/46/46246.png" alt="">
+                    </button>
                 </div>
             </div>
             <div class="col-12 col-md-5">
@@ -39,9 +40,9 @@
                             </select>
                             <small class="form-text text-danger" v-if="!calcValute">Выберите валюту расчета</small>
                         </div>
-                        <div class="form-group" v-if="calcValute">
+                        <div class="form-group" v-if="calcValute && baseValute">
                             <label for="res-number">{{calcValute.CharCode}}</label>
-                            <input type="text" id="res-number" class="form-control" v-model="resultCalc" disabled>
+                            <input type="text" id="res-number" class="form-control" v-model="calcResult" disabled>
                             <small class="form-text text-muted">{{calcValute.Name}}</small>
                         </div>
                     </div>
@@ -53,39 +54,23 @@
 
 
 <script>
-    import {getValutes} from '../api.js';
+    import {useValutes} from '@/composition/useValutes';
+    import {useConvertValutes} from '@/composition/useConvertValutes';
 
     export default {
         name: 'AboutView',
-        data() {
+        setup(){
+            const {valutes} = useValutes();
+            const {amount, baseValute, calcValute, calcResult, reverse} = useConvertValutes();
+
             return {
-                baseValute: '',
-                calcValute: '',
-                calc: 1,
-                valutes: []
-            }
+                valutes,
+                amount,
+                baseValute,
+                calcValute,
+                calcResult,
+                reverse
+            };
         },
-        async created() {
-            const result = await getValutes();
-            for (let i in result.Valute) {
-                this.valutes.push(result.Valute[i])
-            }
-            this.baseValute = this.valutes[10];
-        },
-        computed: {
-            resultCalc() {
-                return this.calcValute
-                    ? ((this.baseValute.Value / this.baseValute.Nominal) / (this.calcValute.Value / this.calcValute.Nominal) * this.calc).toFixed(4)
-                    : null
-            }
-        },
-        methods: {
-            reverse() {
-                const left = this.baseValute;
-                const right = this.calcValute;
-                this.baseValute = right;
-                this.calcValute = left;
-            }
-        }
     }
 </script>

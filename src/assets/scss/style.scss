@@ -5,10 +5,12 @@ html, body {
 }
 
 .card{
-  .card-subtitle{
-    color: #999;
-    height: 40px;
-    line-height: 1.2;
+  .card-header{
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important;
+    text-align: center!important;
+    height: 65px;
   }
 }
 
@@ -20,6 +22,11 @@ html, body {
       border-color: transparent;
     }
   }
+}
+
+small{
+  font-size: 80%;
+  color: #999;
 }
 
 .special-block{

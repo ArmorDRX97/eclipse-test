@@ -1,30 +1,18 @@
 <template>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#">Тимур</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <router-link class="nav-link" to="/">Список валютных пар</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/about">Конвертер валют</router-link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <Navbar/>
     <main class="container pt-4">
         <router-view/>
     </main>
 </template>
+
+<script>
+    import Navbar from './components/Navbar';
+    export default {
+        components: {
+            Navbar
+        }
+    }
+</script>
 
 <style lang="scss">
     @import '~bootstrap/dist/css/bootstrap.min.css';
